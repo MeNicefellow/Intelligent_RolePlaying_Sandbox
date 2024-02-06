@@ -51,9 +51,14 @@ This project is licensed under the terms of the Apache 2.0 License.
 
 We are always looking forward to hearing from our users and we welcome their input on features they would like to see in future versions of our application. If you have a feature request, please feel free to open an issue on our GitHub repository describing the feature you would like to see. We can't promise that we'll implement every feature request, but we will certainly consider each one carefully. Your feedback is invaluable in helping us improve our application.
 
+## Disclaimer
+
+This project is intended for personal use. It may contain vulnerabilities and security concerns. Users should use this project at their own risk. The developers of this project will not be responsible for any damage or issues that may arise from using this project.
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
+
 
 ## Feeling Generous? 😊
 Eager to buy me a cup of 2$ coffe or iced tea?🍵☕ Sure, here is the link: [https://ko-fi.com/drnicefellow](https://ko-fi.com/drnicefellow). Please add a note on which one you want me to drink?
