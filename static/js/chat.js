@@ -3,31 +3,34 @@ function getRandomColor() {
     const letters = '0123456789ABCDEF';
     let color = '#';
     for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
+        color += letters[Math.floor(Math.random() * 8)]; // Generate a random number between 0 and 7
     }
     return color;
 }
-
 // Object to store the narrator-color pairs
 let narratorColors = {};
 
+function parseItalic(text) {
+    return text.replace(/\*(.*?)\*/g, '<i>$1</i>');
+}
+
 function sendMessage() {
     const narratorInput = document.getElementById('narrator-input');
-    const chatInput = document.getElementById('chat-input');
+    let chatInput = document.getElementById('chat-input');
     const chatBox = document.getElementById('chat-box');
 
     let message;
     let color = 'black'; // Default color
 
     if (narratorInput.value) {
-        message = narratorInput.value + ': ' + chatInput.value;
+        message = narratorInput.value + ': ' + parseItalic(chatInput.value);
         let narrator = narratorInput.value.toLowerCase(); // Use narrator's name as key
         if (!narratorColors[narrator]) {
             narratorColors[narrator] = getRandomColor(); // Generate a new color for the narrator
         }
         color = narratorColors[narrator];
     } else {
-        message = chatInput.value;
+        message = parseItalic(chatInput.value);
     }
 
     chatInput.value = '';
@@ -37,11 +40,11 @@ function sendMessage() {
     }
 }
 
-
 document.getElementById('generate-button').addEventListener('click', function() {
     let chatText = document.getElementById('chat-box').innerHTML;
     let narratorText = document.getElementById('narrator-input').value;
 
+    document.getElementById('loading-indicator').style.display = 'inline';
     fetch('/ask', {
         method: 'POST',
         headers: {
@@ -51,6 +54,7 @@ document.getElementById('generate-button').addEventListener('click', function() 
     })
     .then(response => response.json())
     .then(data => {
+        document.getElementById('loading-indicator').style.display = 'none';
         const chatBox = document.getElementById('chat-box');
         const messages = data.answer;
         messages.forEach(message => {
@@ -63,11 +67,13 @@ document.getElementById('generate-button').addEventListener('click', function() 
                     }
                     color = narratorColors[narrator];
                 }
+                message = parseItalic(message);
                 chatBox.innerHTML += `<div style="color: ${color};">${message}</div>`; // Use the narrator's color
             }
         });
     })
     .catch((error) => {
+        document.getElementById('loading-indicator').style.display = 'none';
         console.error('Error:', error);
     });
 });
@@ -110,23 +116,34 @@ document.getElementById('change-background').addEventListener('click', function(
             document.body.style.backgroundImage = 'url(' + nextImage + ')';
         });
 });
-
+document.getElementById('new-story-btn').addEventListener('click', function() {
+    document.getElementById('chat-box').innerHTML = '';
+});
 function saveStory() {
     let chatHistory = document.getElementById('chat-box').innerHTML;
+    let storyName = prompt("Please enter a name for the story:", "Default Story Name"); // Add this line
+    if (storyName == null || storyName == "") {
+        storyName = "Default Story Name"; // Use the current automatic name as the default value
+    }
     fetch('/save_story', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({chatHistory: chatHistory}),
+        body: JSON.stringify({story: chatHistory, name: storyName}), // Add the storyName to the request body
     })
     .then(response => response.json())
     .then(data => {
-        console.log(data);
-        getAllStories();  // Refresh the list of stories after saving a new one
+        // Handle the response
+        if (data.status === 'success') {
+            alert('Story saved successfully!');
+            getAllStories(); // Reload the list of stories
+        } else {
+            alert('Failed to save the story');
+        }
     })
     .catch((error) => {
-        console.error('Error:', error);
+        // Handle the error
     });
 }
 
@@ -160,3 +177,8 @@ function getAllStories() {
         console.error('Error:', error);
     });
 }
+
+// Load the story list when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+    getAllStories();
+});

@@ -20,7 +20,10 @@
             <input type="text" id="chat-input" placeholder="your character's next action or words......">
             <button id="send-btn" onclick="sendMessage()">Send</button>
             <button id="generate-button">Generate</button>
+        </div>
+        <div id="button-area">
             <button onclick="window.location.href='{{ url_for('download_chat_history') }}'" id="download-btn">Download Chat History</button>
+            <button id="new-story-btn">New Story</button>
             <button id="change-background">Change Background</button>
             <button id="clear-btn">Clear Chat History</button>
             <button id="save-story-btn" onclick="saveStory()">Save Story</button>

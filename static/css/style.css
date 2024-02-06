@@ -8,9 +8,18 @@
 #download-btn {
     margin-left: 10px;
 }
-#generate-button {
-    background-color: blue;
-    color: white; /* This will make the text color white, so it's visible on the blue background */
+
+#loading-indicator {
+    display: none;
+    font-size: 2em; /* Increase the size */
+    color: red; /* Change the color */
+    animation: blink 1s linear infinite; /* Add a blinking animation */
+}
+
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
 }
 body {
     font-family: Arial, sans-serif;
@@ -35,6 +44,15 @@ body {
     background-color: rgba(255, 255, 255, 0.5);
 }
 
+
+#new-story-btn:hover,
+#download-btn:hover,
+#change-background:hover,
+#clear-btn:hover,
+#save-story-btn:hover,
+#show-story-btn:hover {
+    background-color: #0056b3;
+}
 #stories-list {
     flex-shrink: 0; /* prevent stories-list from shrinking */
     width: 300px; /* set a fixed width for stories-list */
@@ -45,6 +63,19 @@ body {
     list-style-type: none; /* remove default bullet points */
     margin: 0; /* remove default margin */
     padding: 0; /* remove default padding */
+}
+
+#new-story-btn,
+#download-btn,
+#change-background,
+#clear-btn,
+#save-story-btn,
+#show-story-btn {
+    height: 50px; /* Adjust this value to match the height of the "Send" and "Generate" buttons */
+}
+
+#button-area {
+    text-align: center;
 }
 
 #stories-list li {
@@ -69,6 +100,7 @@ body {
 }
 
 #chat-box div {
+    font-weight: bold;
     margin-bottom: 10px;
     padding: 10px;
     background-color: #d8d8d8;
@@ -89,9 +121,9 @@ body {
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-right: 10px;
+    width: 70%; /* Adjust this value to make the input field wider */
 }
-
-#send-btn {
+#generate-button, #send-btn {
     padding: 10px 20px;
     background-color: #007bff;
     border: none;
@@ -100,6 +132,6 @@ body {
     cursor: pointer;
 }
 
-#send-btn:hover {
+#generate-button:hover, #send-btn:hover {
     background-color: #0056b3;
 }

@@ -36,9 +36,9 @@ session = {}
 def save_story():
     if not os.path.exists('stories'):
         os.makedirs('stories')
-    chat_history = request.get_json().get('chatHistory', '')
-    filename = f'{datetime.now().strftime("%Y%m%d%H%M%S")}_{uuid.uuid4().hex[:6]}.txt'
-    with open(f'stories/{filename}', 'w') as f:
+    chat_history = request.get_json().get('story', '')
+    filename = request.get_json().get('name', f'{datetime.now().strftime("%Y%m%d%H%M%S")}_{uuid.uuid4().hex[:6]}.txt')#
+    with open(f'stories/{filename}.txt', 'w') as f:
         f.write(chat_history)
     return jsonify({'status': 'success', 'filename': filename})
 @app.route('/load_story', methods=['GET'])
@@ -89,7 +89,7 @@ def home():
     # Initialize chat history for new session
     if 'chat_history' not in session:
         session['chat_history'] = ''
-    title = user+"'s Personal Assistant"  # Replace 'xx' with the desired name
+    title = user+"'s Role Playing Sandbox"  # Replace 'xx' with the desired name
     return render_template('index.html', title=title)
 
 @app.route('/ask', methods=['POST'])
@@ -99,8 +99,10 @@ def ask():
     #chat_text = chat_text.replace('<div>','[Start]').replace('</div>','[End]\n')
     chat_text = re.sub('<div style="color: .*?;">', '[Start]', chat_text)
     chat_text = chat_text.replace('</div>', '[End]\n')
+    chat_text = chat_text.replace('<i>','*').replace('</i>','*')
     new_chat_history = re.sub('<div style="color: .*?;">', '', chat_text)
     new_chat_history = new_chat_history.replace('</div>','[cut]\n')
+    new_chat_history = new_chat_history.replace('<i>','*').replace('</i>','*')
     session['chat_history'] += new_chat_history
     print("chat_text:",chat_text)
     narrator = data['narratorText']
