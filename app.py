@@ -5,7 +5,7 @@ from flask import request, send_from_directory
 import random
 from datetime import datetime
 import uuid
-
+import re
 app = Flask(__name__)
 import yaml
 import os
@@ -96,8 +96,12 @@ def home():
 def ask():
     data = request.json
     chat_text = data['chatText']
-    chat_text = chat_text.replace('<div>','[Start]').replace('</div>','[End]\n')
-    session['chat_history'] += chat_text.replace('<div>','').replace('</div>','[cut]\n')
+    #chat_text = chat_text.replace('<div>','[Start]').replace('</div>','[End]\n')
+    chat_text = re.sub('<div style="color: .*?;">', '[Start]', chat_text)
+    chat_text = chat_text.replace('</div>', '[End]\n')
+    new_chat_history = re.sub('<div style="color: .*?;">', '', chat_text)
+    new_chat_history = new_chat_history.replace('</div>','[cut]\n')
+    session['chat_history'] += new_chat_history
     print("chat_text:",chat_text)
     narrator = data['narratorText']
     print("narrator:",narrator)

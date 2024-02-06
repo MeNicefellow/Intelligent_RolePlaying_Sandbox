@@ -1,23 +1,42 @@
+// Function to generate a random color
+function getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
+// Object to store the narrator-color pairs
+let narratorColors = {};
+
 function sendMessage() {
     const narratorInput = document.getElementById('narrator-input');
     const chatInput = document.getElementById('chat-input');
     const chatBox = document.getElementById('chat-box');
 
-    let message; // Declare message here
+    let message;
+    let color = 'black'; // Default color
 
     if (narratorInput.value) {
-        message = narratorInput.value + ': ' + chatInput.value; // Assign a value to message
+        message = narratorInput.value + ': ' + chatInput.value;
+        let narrator = narratorInput.value.toLowerCase(); // Use narrator's name as key
+        if (!narratorColors[narrator]) {
+            narratorColors[narrator] = getRandomColor(); // Generate a new color for the narrator
+        }
+        color = narratorColors[narrator];
     } else {
-        message = chatInput.value; // Assign a value to message
+        message = chatInput.value;
     }
 
-    chatInput.value = ''; // Clear chat input after sending
+    chatInput.value = '';
 
     if (message) {
-        // Display the user's message
-        chatBox.innerHTML += `<div>${message}</div>`;
+        chatBox.innerHTML += `<div style="color: ${color};">${message}</div>`; // Use the narrator's color
     }
 }
+
 
 document.getElementById('generate-button').addEventListener('click', function() {
     let chatText = document.getElementById('chat-box').innerHTML;
@@ -32,14 +51,19 @@ document.getElementById('generate-button').addEventListener('click', function() 
     })
     .then(response => response.json())
     .then(data => {
-        // Handle the server's response here
-        console.log(data);
-        // Add the server's response to the chat box
         const chatBox = document.getElementById('chat-box');
         const messages = data.answer;
         messages.forEach(message => {
             if (message) {
-                chatBox.innerHTML += `<div>${message}</div>`; // Create a new div for each text
+                let color = 'black'; // Default color
+                if (message.includes(':')) {
+                    let narrator = message.split(':')[0].toLowerCase(); // Use narrator's name as key
+                    if (!narratorColors[narrator]) {
+                        narratorColors[narrator] = getRandomColor(); // Generate a new color for the narrator
+                    }
+                    color = narratorColors[narrator];
+                }
+                chatBox.innerHTML += `<div style="color: ${color};">${message}</div>`; // Use the narrator's color
             }
         });
     })
