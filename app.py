@@ -1,5 +1,5 @@
-from flask import Flask, render_template, request, jsonify#, session
-from flask_session import Session  # You may need to install this with pip
+from flask import Flask, render_template, request, jsonify,make_response#, session
+#from flask_session import Session  # You may need to install this with pip
 import requests
 from flask import request, send_from_directory
 import random
@@ -19,15 +19,14 @@ user = cfg['user_name']
 host = cfg['host']
 
 # Configure server-side session
-app.config["SESSION_PERMANENT"] = False
-app.config["SESSION_TYPE"] = "filesystem"
+#app.config["SESSION_PERMANENT"] = False
+#app.config["SESSION_TYPE"] = "filesystem"
 #session_dir = os.path.join(app.instance_path, 'session')
 #if not os.path.exists(session_dir):
 #    os.makedirs(session_dir)
 #app.config["SESSION_FILE_DIR"] = session_dir
-Session(app)
+#Session(app)
 
-from flask import make_response
 
 session = {}
 
