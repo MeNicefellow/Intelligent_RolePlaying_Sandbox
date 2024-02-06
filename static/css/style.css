@@ -37,13 +37,27 @@ body {
 
 #stories-list {
     flex-shrink: 0; /* prevent stories-list from shrinking */
-    width: 200px; /* set a fixed width for stories-list */
+    width: 300px; /* set a fixed width for stories-list */
     overflow-y: auto;
     border-left: 1px solid #ccc;
     padding: 20px;
     background-color: rgba(255, 255, 255, 0.5);
+    list-style-type: none; /* remove default bullet points */
+    margin: 0; /* remove default margin */
+    padding: 0; /* remove default padding */
 }
 
+#stories-list li {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer; /* change cursor on hover */
+}
+
+#stories-list li:hover {
+    background-color: #f0f0f0; /* change background color on hover */
+}
 #chat-container {
     width: 40%;
     height: 70%;

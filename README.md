@@ -1,4 +1,4 @@
-# DrNiceFellow's Web-based Intelligent Roleplaying Game
+# DrNiceFellow's Web-based Intelligent Roleplaying Sandbox
 
 ![Screenshot](/assets/screenshot.png)
 
