@@ -36,7 +36,7 @@ Open your web browser and navigate to `http://localhost:7863`. You can start cha
 
 ## Role Play Scenarios
 
-This repository comes with two role play scenarios for you to explore. We are constantly working on creating more engaging and diverse scenarios for our users. More Role Play scenarios will be added to our Huggingface Page. You can check them out at [DrNicefellow's Huggingface Page](https://huggingface.co/DrNicefellow).
+This repository comes with two role play scenarios for you to explore. We are constantly working on creating more engaging and diverse scenarios for our users. More Role Play scenarios can be found our Huggingface Project. You can check them out at [DrNicefellow/WorryFree_RolePlaying_Scenarios-v1](https://huggingface.co/datasets/DrNicefellow/WorryFree_RolePlaying_Scenarios-v1).
 
 ## TODO
 
