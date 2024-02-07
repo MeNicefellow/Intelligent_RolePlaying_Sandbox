@@ -97,14 +97,15 @@ def ask():
         session['chat_history'] = ''
     data = request.json
     chat_text = data['chatText']
+    print("original chat_text:",chat_text)
     #chat_text = chat_text.replace('<div>','[Start]').replace('</div>','[End]\n')
-    chat_text = re.sub('<div style="color: .*?;">', '[Start]', chat_text)
-    chat_text = chat_text.replace('</div>', '[End]\n')
+    chat_text = re.sub('<div><div style="color: .*?;">', '[Start]', chat_text)
+    chat_text = chat_text.replace('</div><button>Edit</button></div>', '[End]\n')
     chat_text = chat_text.replace('<i>','*').replace('</i>','*')
-    new_chat_history = re.sub('<div style="color: .*?;">', '', chat_text)
-    new_chat_history = new_chat_history.replace('</div>','[cut]\n')
-    new_chat_history = new_chat_history.replace('<i>','*').replace('</i>','*')
-    session['chat_history'] += new_chat_history
+    #new_chat_history = re.sub('<div style="color: .*?;">', '', chat_text)
+    #new_chat_history = new_chat_history.replace('</div>','[cut]\n')
+    #new_chat_history = new_chat_history.replace('<i>','*').replace('</i>','*')
+    #session['chat_history'] += new_chat_history
     print("chat_text:",chat_text)
     narrator = data['narratorText']
     print("narrator:",narrator)
@@ -160,7 +161,7 @@ def ask():
         print("Original answer:",answer)
         answer = answer.replace('[End]\n','')
         answer = answer.split('[Start]')
-        session['chat_history'] += '[cut]\n'.join(answer)
+        #session['chat_history'] += '[cut]\n'.join(answer)
         print("answer:",answer)
         return jsonify({'answer': answer})
     else:

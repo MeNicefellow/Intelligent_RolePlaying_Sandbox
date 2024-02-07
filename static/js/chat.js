@@ -36,10 +36,56 @@ function sendMessage() {
     chatInput.value = '';
 
     if (message) {
-        chatBox.innerHTML += `<div style="color: ${color};">${message}</div>`; // Use the narrator's color
+         addTalkToChatBox(`<div style="color: ${color};">${message}</div>`); // Call the function here
     }
 }
 
+// This is a simplified version of your function that adds a new talk to the chat box
+function addTalkToChatBox(talk) {
+    // Create a new div for the talk
+    let talkDiv = document.createElement('div');
+    talkDiv.innerHTML = talk; // Use innerHTML instead of textContent
+
+    // Create an edit button
+    let editButton = document.createElement('button');
+    editButton.textContent = 'Edit';
+    editButton.addEventListener('click', function() {
+        editTalk(talkDiv);
+    });
+
+    // Add the talk and the edit button to the chat box
+    talkDiv.appendChild(editButton);
+    document.getElementById('chat-box').appendChild(talkDiv);
+}
+
+function editTalk(talkDiv) {
+    // Save the current talk text
+    let currentTalk = talkDiv.innerHTML; // Get the HTML content, including the "Edit" button
+    let editButton = talkDiv.querySelector('button');
+    currentTalk = currentTalk.replace(editButton.outerHTML, ''); // Remove the "Edit" button from the content
+
+    // Create an input field with the current talk text
+    let inputField = document.createElement('input');
+    inputField.type = 'text';
+    inputField.value = currentTalk;
+
+    // Clear the HTML content of the div
+    talkDiv.innerHTML = '';
+
+    // When the user presses enter, save the changes, remove the input field, and add the "Edit" button back
+    inputField.addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            talkDiv.innerHTML = inputField.value; // Set the new HTML content
+            talkDiv.appendChild(editButton); // Add the "Edit" button back
+        }
+    });
+
+    // Add the input field to the div
+    talkDiv.appendChild(inputField);
+
+    // Focus the input field
+    inputField.focus();
+}
 document.getElementById('generate-button').addEventListener('click', function() {
     let chatText = document.getElementById('chat-box').innerHTML;
     let narratorText = document.getElementById('narrator-input').value;
@@ -82,7 +128,7 @@ document.getElementById('generate-button').addEventListener('click', function() 
                     color = narratorColors[narrator];
                 }
                 message = parseItalic(message);
-                chatBox.innerHTML += `<div style="color: ${color};">${message}</div>`; // Use the narrator's color
+                addTalkToChatBox(`<div style="color: ${color};">${message}</div>`);// Use the narrator's color
             }
         });
     })
