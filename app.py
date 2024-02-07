@@ -93,6 +93,8 @@ def home():
 
 @app.route('/ask', methods=['POST'])
 def ask():
+    if 'chat_history' not in session:
+        session['chat_history'] = ''
     data = request.json
     chat_text = data['chatText']
     #chat_text = chat_text.replace('<div>','[Start]').replace('</div>','[End]\n')
@@ -113,11 +115,11 @@ def ask():
 
 
 
-    max_tokens = 1024
-    min_p = 0.2
-    top_k = 100
-    top_p = 0.9
-    temperature=0.8
+    max_tokens = data['max_tokens']
+    min_p = data['min_p']
+    top_k = data['top_k']
+    top_p = data['top_p']
+    temperature= data['temperature']
     #inst_beg = "[INST]"
     #inst_end = "[/INST]"
     prompt = chat_text

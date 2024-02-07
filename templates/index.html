@@ -12,7 +12,25 @@
         <div id="chat-title">{{ title }}</div> <!-- This is where the title is displayed in the chat UI -->
         <div id="content-area">
             <div id="chat-box"></div>
-            <ul id="stories-list"></ul>
+                 <div id="stories">
+                    <h3>Saved Stories</h3>
+                    <ul id="stories-list"></ul>
+                 </div>
+            <div class="parameters">
+                <h3>Parameters</h3>
+                <form id="parameters-form">
+                    <label for="max_tokens">Max Tokens:</label><br>
+                    <input type="number" id="max_tokens" name="max_tokens" value="1024"><br>
+                    <label for="min_p">Min P:</label><br>
+                    <input type="number" id="min_p" name="min_p" value="0.2"><br>
+                    <label for="top_k">Top K:</label><br>
+                    <input type="number" id="top_k" name="top_k" value="100"><br>
+                    <label for="top_p">Top P:</label><br>
+                    <input type="number" id="top_p" name="top_p" value="0.9"><br>
+                    <label for="temperature">Temperature:</label><br>
+                    <input type="number" id="temperature" name="temperature" value="0.8"><br>
+                </form>
+            </div>
         </div>
         <div id="input-area">
             <span id="loading-indicator" style="display: none;">...</span>

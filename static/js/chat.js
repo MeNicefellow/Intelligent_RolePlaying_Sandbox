@@ -45,12 +45,26 @@ document.getElementById('generate-button').addEventListener('click', function() 
     let narratorText = document.getElementById('narrator-input').value;
 
     document.getElementById('loading-indicator').style.display = 'inline';
+    let parametersForm = document.getElementById('parameters-form');
+    let max_tokens = parametersForm.elements.max_tokens.value;
+    let min_p = parametersForm.elements.min_p.value;
+    let top_k = parametersForm.elements.top_k.value;
+    let top_p = parametersForm.elements.top_p.value;
+    let temperature = parametersForm.elements.temperature.value;
     fetch('/ask', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json'
         },
-        body: JSON.stringify({chatText: chatText, narratorText: narratorText}),
+        body: JSON.stringify({
+            chatText: chatText,
+            narratorText: narratorText,
+            max_tokens: max_tokens,
+            min_p: min_p,
+            top_k: top_k,
+            top_p: top_p,
+            temperature: temperature
+        })
     })
     .then(response => response.json())
     .then(data => {

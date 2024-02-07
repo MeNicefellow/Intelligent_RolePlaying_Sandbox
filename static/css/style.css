@@ -78,6 +78,24 @@ body {
     text-align: center;
 }
 
+#content-area {
+    display: grid;
+    grid-template-columns: 6fr 0.5fr 0.5fr;
+}
+#chat-box {
+    grid-column: 1;
+}
+
+#stories{
+    padding: 10px;
+    grid-column: 2;
+}
+
+.parameters {
+    padding: 10px;
+    grid-column: 3;
+}
+
 #stories-list li {
     padding: 10px;
     margin-bottom: 10px;
@@ -90,7 +108,7 @@ body {
     background-color: #f0f0f0; /* change background color on hover */
 }
 #chat-container {
-    width: 40%;
+    width: 60%;
     height: 70%;
     background-color: rgba(255, 255, 255, 0.5); /* white with 50% opacity */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);

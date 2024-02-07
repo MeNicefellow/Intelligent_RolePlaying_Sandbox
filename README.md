@@ -40,6 +40,8 @@ This repository comes with two role play scenarios for you to explore. We are co
 
 ## TODO
 
+- [x] Add start batch file for Windows
+- [x] Add host parameter control to the Web UI
 - [ ] Add function for users to modify chat history
 - [ ] Add a feature to allow users to customize the chatbot's behavior
 
