@@ -68,6 +68,7 @@ function editTalk(talkDiv) {
     let inputField = document.createElement('input');
     inputField.type = 'text';
     inputField.value = currentTalk;
+    inputField.style.width = '100%'; // Make the input field as wide as its parent container
 
     // Clear the HTML content of the div
     talkDiv.innerHTML = '';
